@@ -8,6 +8,7 @@
   programs.home-manager.enable = true;
 
   home.packages = with pkgs; [
+    awscli2
     pixi
     uv
   ];
