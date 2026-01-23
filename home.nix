@@ -11,6 +11,9 @@
     awscli2
     pixi
     uv
+    nerd-fonts.jetbrains-mono
+    nerd-fonts.fira-code
+    nerd-fonts.meslo-lg
   ];
 
   programs.zsh = {
@@ -37,63 +40,59 @@
      '';
   };
 
-  programs.vim = {
-  enable = true;
-  defaultEditor = true;
-  
-  plugins = with pkgs.vimPlugins; [
-    editorconfig-vim
-    vim-nix
-  ];
-  
-  # Only a few settings are actually supported by Home Manager
-  settings = {
-    ignorecase = true;
+  programs.neovim = {
+    enable = true;
+    defaultEditor = true;
+    viAlias = true;
+    vimAlias = true;
+
+    plugins = with pkgs.vimPlugins; [
+      editorconfig-vim
+      vim-nix
+    ];
+
+    extraConfig = ''
+      " File type detection
+      filetype on
+      filetype plugin on
+      filetype indent on
+      syntax on
+
+      " Line numbers
+      set number
+      set relativenumber
+
+      " Indentation
+      set shiftwidth=4
+      set tabstop=4
+
+      " Search
+      set ignorecase
+      set smartcase
+      set incsearch
+      set hlsearch
+
+      " UI
+      set cursorline
+      set showcmd
+      set showmode
+      set showmatch
+      set scrolloff=10
+
+      " Files
+      set nobackup
+
+      " History
+      set history=1000
+
+      " Completion
+      set wildmenu
+      set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
+
+      " Wrapping
+      set nowrap
+    '';
   };
-  
-  # Most vim options need to go in extraConfig
-  extraConfig = ''
-    set nocompatible
-    " File type detection
-    filetype on
-    filetype plugin on
-    filetype indent on
-    syntax on
-    
-    " Line numbers
-    set number
-    set relativenumber
-    
-    " Indentation
-    set shiftwidth=4
-    set tabstop=4
-    
-    " Search
-    set smartcase
-    set incsearch
-    set hlsearch
-    
-    " UI
-    set cursorline
-    set showcmd
-    set showmode
-    set showmatch
-    set scrolloff=10
-    
-    " Files
-    set nobackup
-    
-    " History
-    set history=1000
-    
-    " Completion
-    set wildmenu
-    set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
-    
-    " Wrapping
-    set nowrap
-  '';
-};
 
 
 
@@ -102,13 +101,17 @@
 
     shell = "${pkgs.zsh}/bin/zsh";
 
+    plugins = with pkgs.tmuxPlugins; [
+      nord
+    ];
+
     extraConfig = ''
       unbind C-b
       set-option -g prefix C-a
       bind-key C-a send-prefix
 
       # Reload Config
-      bind r source-file ~/.tmux.conf
+      bind r source-file ~/.config/tmux/tmux.conf
 
       # split panes using | and -
       bind | split-window -h
