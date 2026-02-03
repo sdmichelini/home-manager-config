@@ -14,6 +14,8 @@
     nerd-fonts.jetbrains-mono
     nerd-fonts.fira-code
     nerd-fonts.meslo-lg
+    ripgrep  # for telescope live_grep
+    fd       # for telescope find_files
   ];
 
   programs.zsh = {
@@ -49,6 +51,8 @@
     plugins = with pkgs.vimPlugins; [
       editorconfig-vim
       vim-nix
+      plenary-nvim      # required dependency for telescope
+      telescope-nvim
     ];
 
     extraConfig = ''
@@ -91,6 +95,18 @@
 
       " Wrapping
       set nowrap
+    '';
+
+    extraLuaConfig = ''
+      -- Telescope setup
+      require('telescope').setup{}
+
+      -- Telescope keybindings
+      local builtin = require('telescope.builtin')
+      vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Find files' })
+      vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Live grep' })
+      vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Help tags' })
+      vim.keymap.set('n', '<C-p>', builtin.git_files, { desc = 'Git files' })
     '';
   };
 
