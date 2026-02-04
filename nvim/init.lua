@@ -41,3 +41,64 @@ vim.keymap.set("n", "<C-s>", function() harpoon:list():select(4) end)
 -- Toggle previous & next buffers stored within Harpoon list
 vim.keymap.set("n", "<C-S-P>", function() harpoon:list():prev() end)
 vim.keymap.set("n", "<C-S-N>", function() harpoon:list():next() end)
+
+-- LSP setup (Python)
+vim.lsp.config('ruff', {
+  cmd = { 'ruff', 'server' },
+  filetypes = { 'python' },
+  root_markers = { 'pyproject.toml', 'ruff.toml', '.ruff.toml', '.git' },
+  init_options = {
+    settings = {
+      logLevel = 'debug',
+    }
+  }
+})
+
+vim.lsp.config('pyright', {
+  cmd = { 'pyright-langserver', '--stdio' },
+  filetypes = { 'python' },
+  root_markers = { 'pyproject.toml', 'setup.py', 'setup.cfg', 'requirements.txt', '.git' },
+  settings = {
+    python = {
+      analysis = {
+        typeCheckingMode = "off",
+        autoSearchPaths = true,
+        useLibraryCodeForTypes = true,
+        diagnosticMode = "off",
+        autoImportCompletions = false,
+      },
+    }
+  },
+  handlers = {
+    ["textDocument/publishDiagnostics"] = function() end,
+  }
+})
+
+vim.lsp.enable('ruff')
+vim.lsp.enable('pyright')
+
+-- LSP keybindings (only when LSP attaches)
+vim.api.nvim_create_autocmd('LspAttach', {
+  callback = function(args)
+    local opts = { buffer = args.buf, noremap = true, silent = true }
+    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+    vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+    vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+    vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
+  end,
+})
+
+-- Auto-format Python on save
+vim.api.nvim_create_augroup("AutoFormat", {})
+
+vim.api.nvim_create_autocmd(
+  "BufWritePost",
+  {
+    pattern = "*.py",
+    group = "AutoFormat",
+    callback = function()
+      vim.cmd("silent !ruff format %")
+      vim.cmd("edit")
+    end,
+  }
+)

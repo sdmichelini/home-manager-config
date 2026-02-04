@@ -29,3 +29,7 @@ Leader key is `\` (backslash).
 | `Ctrl+s` | Select harpoon file 4 |
 | `Ctrl+Shift+p` | Previous harpoon buffer |
 | `Ctrl+Shift+n` | Next harpoon buffer |
+| `gd` | Go to definition (LSP) |
+| `gr` | Find references (LSP) |
+| `K` | Hover documentation (LSP) |
+| `\rn` | Rename symbol (LSP) |

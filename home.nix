@@ -16,6 +16,8 @@
     nerd-fonts.meslo-lg
     ripgrep  # for telescope live_grep
     fd       # for telescope find_files
+    ruff     # Python linter/LSP
+    pyright  # Python type checking (fallback for completions)
   ];
 
   programs.zsh = {
@@ -61,6 +63,7 @@
         p.javascript
       ]))
       harpoon2
+      nvim-lspconfig
     ];
 
     extraConfig = ''
