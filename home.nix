@@ -63,6 +63,7 @@
         p.go
         p.html
         p.javascript
+        p.nix
       ]))
       harpoon2
       nvim-lspconfig

@@ -9,7 +9,7 @@ require('nvim-treesitter').setup({})
 
 -- Enable highlighting and indentation for treesitter languages
 vim.api.nvim_create_autocmd('FileType', {
-  pattern = { 'python', 'go', 'html', 'javascript' },
+  pattern = { 'python', 'go', 'html', 'javascript', 'nix' },
   callback = function()
     vim.treesitter.start()
     vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
