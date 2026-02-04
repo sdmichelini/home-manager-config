@@ -53,6 +53,13 @@
       vim-nix
       plenary-nvim      # required dependency for telescope
       telescope-nvim
+      rose-pine
+      (nvim-treesitter.withPlugins (p: [
+        p.python
+        p.go
+        p.html
+        p.javascript
+      ]))
     ];
 
     extraConfig = ''
@@ -98,6 +105,24 @@
     '';
 
     extraLuaConfig = ''
+      -- Colorscheme
+      require('rose-pine').setup({
+        variant = 'moon',
+      })
+      vim.cmd('colorscheme rose-pine')
+
+      -- Treesitter setup (parsers pre-compiled via Nix)
+      require('nvim-treesitter').setup({})
+
+      -- Enable highlighting and indentation for treesitter languages
+      vim.api.nvim_create_autocmd('FileType', {
+        pattern = { 'python', 'go', 'html', 'javascript' },
+        callback = function()
+          vim.treesitter.start()
+          vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+        end,
+      })
+
       -- Telescope setup
       require('telescope').setup{}
 
