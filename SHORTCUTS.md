@@ -33,3 +33,8 @@ Leader key is `\` (backslash).
 | `gr` | Find references (LSP) |
 | `K` | Hover documentation (LSP) |
 | `\rn` | Rename symbol (LSP) |
+| `Ctrl+Space` | Trigger completion (insert mode) |
+| `Ctrl+n` | Next completion item |
+| `Ctrl+p` | Previous completion item |
+| `Enter` | Confirm completion |
+| `Ctrl+e` | Abort completion |

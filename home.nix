@@ -18,6 +18,8 @@
     fd       # for telescope find_files
     ruff     # Python linter/LSP
     pyright  # Python type checking (fallback for completions)
+    go       # Go compiler and tools
+    gopls    # Go LSP
   ];
 
   programs.zsh = {
@@ -64,6 +66,12 @@
       ]))
       harpoon2
       nvim-lspconfig
+      nvim-cmp
+      cmp-nvim-lsp
+      cmp-buffer
+      cmp-path
+      luasnip
+      cmp_luasnip
     ];
 
     extraConfig = ''
@@ -135,6 +143,9 @@
       bind - split-window -v
       unbind '"'
       unbind %
+
+      # Pass C-Space through to applications (for nvim completion)
+      unbind C-Space
 
       set-option -g update-environment "PATH"
     '';

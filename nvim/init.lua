@@ -42,11 +42,41 @@ vim.keymap.set("n", "<C-s>", function() harpoon:list():select(4) end)
 vim.keymap.set("n", "<C-S-P>", function() harpoon:list():prev() end)
 vim.keymap.set("n", "<C-S-N>", function() harpoon:list():next() end)
 
+-- nvim-cmp setup
+local cmp = require('cmp')
+local luasnip = require('luasnip')
+
+cmp.setup({
+  snippet = {
+    expand = function(args)
+      luasnip.lsp_expand(args.body)
+    end,
+  },
+  mapping = cmp.mapping.preset.insert({
+    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<C-e>'] = cmp.mapping.abort(),
+    ['<CR>'] = cmp.mapping.confirm({ select = true }),
+    ['<C-n>'] = cmp.mapping.select_next_item(),
+    ['<C-p>'] = cmp.mapping.select_prev_item(),
+  }),
+  sources = cmp.config.sources({
+    { name = 'nvim_lsp' },
+    { name = 'luasnip' },
+  }, {
+    { name = 'buffer' },
+    { name = 'path' },
+  })
+})
+
+-- LSP capabilities for nvim-cmp
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
 -- LSP setup (Python)
 vim.lsp.config('ruff', {
   cmd = { 'ruff', 'server' },
   filetypes = { 'python' },
   root_markers = { 'pyproject.toml', 'ruff.toml', '.ruff.toml', '.git' },
+  capabilities = capabilities,
   init_options = {
     settings = {
       logLevel = 'debug',
@@ -58,6 +88,7 @@ vim.lsp.config('pyright', {
   cmd = { 'pyright-langserver', '--stdio' },
   filetypes = { 'python' },
   root_markers = { 'pyproject.toml', 'setup.py', 'setup.cfg', 'requirements.txt', '.git' },
+  capabilities = capabilities,
   settings = {
     python = {
       analysis = {
@@ -74,8 +105,13 @@ vim.lsp.config('pyright', {
   }
 })
 
+vim.lsp.config('gopls', {
+  capabilities = capabilities,
+})
+
 vim.lsp.enable('ruff')
 vim.lsp.enable('pyright')
+vim.lsp.enable('gopls')
 
 -- LSP keybindings (only when LSP attaches)
 vim.api.nvim_create_autocmd('LspAttach', {
