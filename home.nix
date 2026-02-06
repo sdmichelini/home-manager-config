@@ -20,6 +20,7 @@
     pyright  # Python type checking (fallback for completions)
     go       # Go compiler and tools
     gopls    # Go LSP
+    bun
   ];
 
   programs.zsh = {
