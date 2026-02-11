@@ -22,6 +22,7 @@ Leader key is `\` (backslash).
 | `\fh` | Search help tags (telescope) |
 | `Ctrl+p` | Find git files (telescope) |
 | `\a` | Add file to harpoon list |
+| `\hc` | Clear harpoon list |
 | `Ctrl+e` | Toggle harpoon quick menu |
 | `Ctrl+h` | Select harpoon file 1 |
 | `Ctrl+t` | Select harpoon file 2 |
