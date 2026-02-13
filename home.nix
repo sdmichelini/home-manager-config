@@ -21,6 +21,7 @@
     go       # Go compiler and tools
     gopls    # Go LSP
     bun
+    nodejs
     tree-sitter
   ];
 
