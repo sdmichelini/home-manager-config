@@ -24,6 +24,11 @@
     tree-sitter
   ];
 
+  home.sessionVariables = {
+    NPM_CONFIG_PREFIX = "$HOME/.npm-global";
+  };
+  home.sessionPath = [ "$HOME/.npm-global/bin" "$HOME/.bun/bin" ];
+
   programs.zsh = {
     enable = true;
 
@@ -45,6 +50,7 @@
        # Fix PATH order on macOS - put Nix paths first
        export PATH="$HOME/.local/bin:$PATH"
        export PATH="$HOME/.nix-profile/bin:/nix/var/nix/profiles/default/bin:$PATH"
+       export PATH="$HOME/.bun/bin:$PATH"
      '';
   };
 
