@@ -23,6 +23,7 @@
     bun
     nodejs
     tree-sitter
+    libwebp
   ];
 
   home.sessionVariables = {
