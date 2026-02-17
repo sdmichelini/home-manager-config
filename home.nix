@@ -23,7 +23,9 @@
     bun
     nodejs
     tree-sitter
+    # Needed for IMG Generation
     libwebp
+    pkg-config
   ];
 
   home.sessionVariables = {
