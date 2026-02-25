@@ -160,6 +160,9 @@
       # Pass C-Space through to applications (for nvim completion)
       unbind C-Space
 
+      set -g default-terminal "xterm-ghostty"
+      set -ga terminal-overrides ",xterm-ghostty:Tc"
+
       set-option -g update-environment "PATH"
     '';
   };
