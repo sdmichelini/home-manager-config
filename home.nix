@@ -157,6 +157,9 @@
       unbind '"'
       unbind %
 
+      set -g allow-passthrough on
+      
+
       # Pass C-Space through to applications (for nvim completion)
       unbind C-Space
 
