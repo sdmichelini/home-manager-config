@@ -30,3 +30,5 @@ keybind = shift+up=scroll_page_up
 keybind = shift+down=scroll_page_down
 
 macos-secure-input-indication = false
+
+right-click-action = copy-or-paste
