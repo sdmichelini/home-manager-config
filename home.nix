@@ -134,6 +134,8 @@
 
 
 
+  xdg.configFile."ghostty/config".source = ./ghostty/config;
+
   programs.tmux = {
     enable = true;
 

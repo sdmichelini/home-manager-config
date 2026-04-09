@@ -1,0 +1,32 @@
+theme = Dark Modern
+
+# --- Font ---
+font-family = "JetBrainsMono Nerd Font"
+font-size = 14
+
+# --- Theme ---
+background-opacity = 0.92
+window-padding-x = 6
+window-padding-y = 6
+
+# --- Cursor ---
+cursor-style = "block"
+
+# --- macOS behavior ---
+macos-titlebar-style = "hidden"
+macos-option-as-alt = true
+copy-on-select = true
+
+# --- Performance ---
+confirm-close-surface = false
+scrollback-limit = 50000
+
+# --- Keybinds ---
+# Make sure arrow keys pass cleanly to tmux
+keybind = clear
+
+# Disable Ghostty handling of certain sequences (lets tmux own them)
+keybind = shift+up=scroll_page_up
+keybind = shift+down=scroll_page_down
+
+macos-secure-input-indication = false
